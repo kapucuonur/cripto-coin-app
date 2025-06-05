@@ -1,53 +1,35 @@
+// vite.config.js 
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
-  // Base public path (for deployment)
   base: '/',
-  css: {
-    devSourcemap: true  // Enable CSS source maps in development
+  css: { // Only keep one css configuration block
+    devSourcemap: true
   },
-  // Development server options
   server: {
     port: 3000,
-    open: true,  // Automatically open browser
-    strictPort: true, // Exit if port 3000 is in use
-    host: true,  // Enable network access
-    cors: true   // Enable CORS
+    open: true,
+    strictPort: true,
+    host: true,
+    cors: true
   },
-
-  // Build options
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    emptyOutDir: true,  // Clean dist folder before build
+    emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html')  // Entry point
-      },
-      output: {
-        assetFileNames: 'assets/[name].[hash].[ext]',  // Hashed assets
-        chunkFileNames: 'assets/[name].[hash].js',
-        entryFileNames: 'assets/[name].[hash].js'
+        main: resolve(__dirname, 'index.html')
       }
     },
-    minify: 'terser',  // Minify JS
-    sourcemap: true    // Generate source maps
+    minify: 'terser',
+    sourcemap: true
   },
-
-  // Plugin options
-  plugins: [],
-
-  // Resolve aliases (optional)
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
       '@components': resolve(__dirname, 'src/components')
     }
-  },
-
-  // CSS options (optional)
-  css: {
-    devSourcemap: true  // CSS source maps in development
   }
 })
