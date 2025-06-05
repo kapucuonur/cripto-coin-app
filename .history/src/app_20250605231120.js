@@ -42,7 +42,7 @@ class App {
     
     // Add spinning logo
     const logo = document.createElement('img');
-    logo.src = '/assets/logo.png'; // Make sure to place your logo.png in public/assets
+    logo.src = '/public/assets/logo.png'; // Make sure to place your logo.png in public/assets
     logo.alt = 'Crypto Logo';
     logo.className = 'spin-logo me-3';
     logo.style.width = '50px';
