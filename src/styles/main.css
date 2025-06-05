@@ -1,0 +1,39 @@
+/* src/styles/main.css */
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* Logo spin animasyonu */
+.spin-logo {
+  animation: spin 4s linear infinite;
+  transition: transform 0.3s ease;
+}
+
+.spin-logo:hover {
+  animation-play-state: paused;
+  transform: scale(1.1);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Başlık container */
+.title-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 2rem;
+}
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .search-container {
+    padding: 0 15px;
+  }
+}
