@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crypto Coin App</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"  rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+</head>
+<body class="p-4">
+  <div class="container text-center mb-5">
+    <h1 class="mb-4">Crypto Coin App</h1>
+    <input type="text" id="coin" class="form-control w-50 mx-auto mb-3" placeholder="Search for a coin" autofocus />
+    <button id="searchBtn" class="btn btn-danger mb-4">Search</button>
+  </div>
+
+  <div class="row justify-content-center" id="row">
+    <!-- Coins appear here -->
+  </div>
+
+  <footer class="text-center mt-5">
+    <small><i class="fab fa-bitcoin"></i> Coded by Onur</small>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("coin");
+      const searchButton = document.getElementById("searchBtn");
+      const coinRow = document.getElementById("row");
+
+      let isDataLoaded = false;
+      let allCoins = [];
+
+      const init = async () => {
+        await getCoins();
+        setupEventListeners();
+      };
+
+      const getCoins = async () => {
+        const URL = "https://api.coinranking.com/v2/coins"; 
+
+        try {
+          const res = await fetch(URL);
+          if (!res.ok) throw new Error("API request failed");
+
+          const data = await res.json();
+          allCoins = data.data.coins;
+          isDataLoaded = true;
+
+          console.log("✅ Coins loaded:", allCoins.slice(0, 5));
+        } catch (err) {
+          console.error("🚨 Fetch error:", err);
+          Swal.fire({
+            icon: "error",
+            title: "Oops!",
+            text: "Failed to load crypto data.",
+          });
+        }
+      };
+
+      const handleSearch = () => {
+        if (!isDataLoaded) {
+          Swal.fire({ icon: "warning", title: "Wait!", text: "Still loading coins..." });
+          return;
+        }
+
+        const searchValue = searchInput.value.trim().toLowerCase();
+
+        if (!searchValue) {
+          Swal.fire({ icon: "error", title: "Empty", text: "Please enter a coin name." });
+          return;
+        }
+
+        const matchedCoin = allCoins.find(coin => coin.name.toLowerCase() === searchValue);
+
+        if (!matchedCoin) {
+          Swal.fire({ icon: "error", title: "Not Found", text: "Coin not found!" });
+          return;
+        }
+
+        addCoinToDOM(matchedCoin);
+        searchInput.value = "";
+      };
+
+      const addCoinToDOM = (coin) => {
+        const { name, symbol, price, iconUrl, change } = coin;
+
+        const changedClass = change > 0 ? "green" : "red";
+        const fsClass = name.length > 9 ? "smfontSize" : "fs-3";
+
+        const exists = [...coinRow.querySelectorAll(".coin-box")].some(
+          el => el.dataset.name === name.toLowerCase()
+        );
+
+        if (exists) {
+          Swal.fire({ icon: "warning", title: "Already Added", text: `${name} is already displayed.` });
+          return;
+        }
+
+        const coinHTML = `
+          <div class="col-6 col-md-3 d-flex flex-column align-items-center border py-3 position-relative coin-box rounded-5" data-name="${name.toLowerCase()}">
+            <span class="close text-white">x</span>
+            <div class="coin_name position-relative">
+              <p class="position-relative fs-3 text-bg-dark rounded-5 px-3">${name}</p>
+            </div>
+            <div class="price fs-4 fw-bold"><p>$${Number(price).toFixed(4)}</p></div>
+            <div class="icon w-100 d-flex justify-content-center align-items-center">
+              <img class="w-50" src="${iconUrl}" alt="${name} icon">
+            </div>
+            <div class="changed ${change > 0 ? "green" : "red"} mt-3">${change.toFixed(2)}%</div>
+          </div>
+        `;
+
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = coinHTML;
+        coinRow.appendChild(tempDiv.firstElementChild);
+      };
+
+      const setupEventListeners = () => {
+        searchButton.addEventListener("click", (e) => {
+          e.preventDefault();
+          handleSearch();
+        });
+
+        searchInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleSearch();
+          }
+        });
+
+        coinRow.addEventListener("click", (e) => {
+          if (e.target.classList.contains("close")) {
+            e.target.closest(".coin-box").remove();
+          }
+        });
+
+        searchInput.addEventListener("input", debounce(handleSearch, 500));
+      };
+
+      function debounce(fn, delay) {
+        let timeout;
+        return function () {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => fn.apply(this, arguments), delay);
+        };
+      }
+
+      init();
+    });
+  </script>
+</body>
+</html>

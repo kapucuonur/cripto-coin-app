@@ -1,0 +1,57 @@
+/* Main search container */
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Back button styling */
+#backBtn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+}
+
+#backBtn:hover {
+  background-color: #5a6268;
+}
+
+/* Search button styling */
+#searchBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#searchBtn:hover {
+  background-color: #0069d9;
+}
+
+/* Input field styling */
+#coin {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .search-container {
+    padding: 0 15px;
+  }
+  
+  #backBtn, #searchBtn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}

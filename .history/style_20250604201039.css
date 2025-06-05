@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main-container{
+    margin-bottom: 1rem;
+    height: 100vh;
+}
+.title{
+    text-shadow: 2px 2px 2px gray;
+}
+
+#coin{
+    outline: none;
+}
+
+.symbol{
+    position: absolute;
+    /* border: 1px solid red; */
+    font-size: 10px;
+}
+
+.close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    cursor: pointer;
+}
+
+.red{
+    color: red;
+}
+
+.green{
+    color: green;
+}
+
+.crypto{
+    animation-name:rotate ;
+    animation-duration: 2s;
+    animation-iteration-count:infinite;
+    animation-timing-function: ease-in;
+}
+
+@keyframes rotate {
+    from{
+        transform:rotateY(0);
+    }
+    to{
+        transform:rotateY(360deg);
+
+    }
+}
+
+.coin-box{
+    width: 300px;
+    box-shadow: 1px -2px 10px black;
+}
+
+.smfontSize{
+    font-size: 1.3rem !important;
+    margin: 0 1rem;
+    text-align: center;
+}

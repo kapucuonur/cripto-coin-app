@@ -1,0 +1,26 @@
+{
+  "name": "crypto-coin-app",
+  "version": "1.0.0",
+  "description": "A component-based cryptocurrency tracking application",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "sweetalert2": "^11.10.5"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9",
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10"
+  },
+  "type": "module",
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
