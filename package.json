@@ -13,9 +13,10 @@
     "sweetalert2": "^11.10.5"
   },
   "devDependencies": {
-    "vite": "^4.4.9",
     "@babel/core": "^7.22.10",
-    "@babel/preset-env": "^7.22.10"
+    "@babel/preset-env": "^7.22.10",
+    "terser": "^5.41.0",
+    "vite": "^4.4.9"
   },
   "type": "module",
   "browserslist": [
